@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>贪吃蛇</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="game-panel" aria-label="Snake game">
+        <header class="hud">
+          <div>
+            <p class="eyebrow">小朋友模式</p>
+            <h1>吃到 <span id="score">0</span> 个</h1>
+          </div>
+          <div class="hud-actions">
+            <button id="pause-button" type="button">暂停</button>
+            <button id="restart-button" type="button">再来一次</button>
+          </div>
+        </header>
+
+        <p id="status" class="status" aria-live="polite">
+          按方向键开始，吃到更多苹果。
+        </p>
+
+        <div class="speed-controls" aria-label="Speed controls">
+          <span class="speed-label">速度</span>
+          <div class="speed-buttons">
+            <button class="speed-button" data-speed="slow" type="button">慢</button>
+            <button class="speed-button" data-speed="normal" type="button">普通</button>
+            <button class="speed-button" data-speed="fast" type="button">快</button>
+          </div>
+        </div>
+
+        <div
+          id="board"
+          class="board"
+          role="grid"
+          aria-label="Snake board"
+          tabindex="0"
+        ></div>
+
+        <div class="controls" aria-label="Touch controls">
+          <button class="control-button" data-direction="UP" type="button">上</button>
+          <div class="controls-row">
+            <button class="control-button" data-direction="LEFT" type="button">左</button>
+            <button class="control-button" data-direction="DOWN" type="button">下</button>
+            <button class="control-button" data-direction="RIGHT" type="button">右</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
