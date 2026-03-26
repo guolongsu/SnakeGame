@@ -1,6 +1,6 @@
 # SnakeGame
 
-一个零依赖的经典贪吃蛇小游戏，使用原生 HTML、CSS 和 JavaScript 实现，适合本地直接启动和二次交接维护。
+一个零依赖的经典贪吃蛇小游戏，使用原生 HTML、CSS 和 JavaScript 实现，可直接本地启动运行。
 
 ## 启动方式
 
@@ -79,6 +79,8 @@ npm test
 - `src/game.js`：规则层
 - `src/app.js`：交互层
 - `docs/game-logic.md`：代码逻辑说明文档
+
+项目已经补充代码逻辑文档，适合后续继续维护和交接。
 
 ## 文档同步规则
 

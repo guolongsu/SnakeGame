@@ -68,6 +68,18 @@
 
 默认速度是 `slow`。
 
+### 主循环流程图
+
+```mermaid
+flowchart TD
+    A["startLoop() 启动定时器"] --> B["根据 state.speed 读取 tick 间隔"]
+    B --> C["setInterval 定时触发"]
+    C --> D["advanceState(state)"]
+    D --> E["返回新的 state"]
+    E --> F["render(state) 更新界面"]
+    F --> C
+```
+
 ## 4. 开始、暂停、重开
 
 ### 开始
@@ -127,6 +139,31 @@
 8. 如果吃到食物，则加分并重新生成食物
 9. 如果棋盘被占满，则状态切为 `won`
 10. 否则状态保持 `running`
+
+### 单帧推进流程图
+
+```mermaid
+flowchart TD
+    A["advanceState(state)"] --> B{"status 是否为 idle / paused / game-over"}
+    B -- "是" --> C["直接返回原 state"]
+    B -- "否" --> D["读取 queuedDirection"]
+    D --> E["计算 nextHead"]
+    E --> F["wrapPosition() 处理穿墙"]
+    F --> G{"是否吃到 food"}
+    G -- "是" --> H["蛇增长，score + 1"]
+    G -- "否" --> I["蛇前进一格，尾巴前移"]
+    H --> J{"是否撞到自己"}
+    I --> J
+    J -- "是" --> K["status = game-over"]
+    J -- "否" --> L{"棋盘是否已填满"}
+    L -- "是" --> M["status = won"]
+    L -- "否" --> N["status = running"]
+    H --> O["重新生成 food"]
+    O --> J
+    K --> P["返回新 state"]
+    M --> P
+    N --> P
+```
 
 ## 7. 穿墙规则
 
@@ -198,6 +235,25 @@
 - `慢 / 普通 / 快`
 - `暂停`
 - `再来一次`
+
+### 输入到状态更新流程图
+
+```mermaid
+flowchart TD
+    A["用户输入"] --> B{"输入类型"}
+    B -- "方向键 / WASD / 方向按钮" --> C["queueDirection()"]
+    B -- "暂停按钮 / 空格" --> D["togglePause()"]
+    B -- "速度按钮" --> E["setSpeed()"]
+    B -- "重开按钮 / Enter" --> F["restartGame()"]
+    C --> G["更新 queuedDirection / status"]
+    D --> H["切换 paused / running"]
+    E --> I["更新 speed 并重建定时器"]
+    F --> J["重置状态并保留 speed"]
+    G --> K["render()"]
+    H --> K
+    I --> K
+    J --> K
+```
 
 ## 12. 测试覆盖
 
